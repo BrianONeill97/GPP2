@@ -1,41 +1,32 @@
-int radius = 30;
-PVector position = new PVector();
+PVector location;  // Location of shape
+PVector velocity;  // Velocity of shape
 
-float xSpeed = 2.8;
-float ySpeed = 2.2;
-
-int xDirect = 1;
-int yDirect = 1;
-
-
-void setup()
-{
+void setup() {
   size(640,360);
-  ellipseMode(RADIUS);
-  
-  //setting starting pos
-  position.x = width/2;
-  position.y = height/2;
+  location = new PVector(100,100);
+  velocity = new PVector(1.5,2.1);
+
 }
 
-void draw()
-{
+void draw() {
   background(0);
   
+ //Adding Velo to location Vector
+  location.add(velocity);
   
-  //Update Pos
-  position.x = position.x + (xSpeed * xDirect);
-  position.y = position.y + (ySpeed * yDirect);
-  
- if (position.x > width-radius || position.x  < radius) 
- {
-    xDirect *= -1;
+  // Edge Hit Detection
+if (location.x > width-24 || location.x < 24) 
+{
+    velocity.x *= -1; // reversing the velo in the x
   }
-  if (position.y > height-radius || position.y < radius) 
+  if (location.y > height-24 || location.y < 24) 
   {
-    yDirect *= -1;
+    velocity.y *= -1; // reversing the velo in the y
   }
-  
-  ellipse(position.x,position.y,radius,radius);
 
+
+  // Display circle at location vector
+  stroke(100);
+  fill(120,240,120);
+  ellipse(location.x,location.y,48,48);
 }
