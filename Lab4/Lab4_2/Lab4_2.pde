@@ -52,6 +52,7 @@ if (locationTwo.x > width-24 || locationTwo.x < 24)
    //ball to ball collision
  if(dist(location.x,location.y,locationTwo.x,locationTwo.y) < 48)
  {
+   
    fill(255,0,0);
    
  }
