@@ -54,11 +54,15 @@ class Ball
 
     if (distMag < minDist)
     {
+      // Used to stop them sticking 
       PVector temp = new PVector(velocity.x, velocity.y);
-      velocity.x = (velocity.x * (mass - other.mass) + (2 * other.mass * other.velocity.x)) / (mass + other.mass);
-      velocity.y = (velocity.y * (mass - other.mass) + (2 * other.mass * other.velocity.y)) / (mass + other.mass);
+      velocity.x = (velocity.x * (mass - other.mass) + (2 * (other.mass * other.velocity.x))) / (mass + other.mass);
+      velocity.y = (velocity.y * (mass - other.mass) + (2 * (other.mass * other.velocity.y))) / (mass + other.mass);
       other.velocity.x = (other.velocity.x * (other.mass - mass) + (2 * mass * temp.x)) / (mass + other.mass);
       other.velocity.y = (other.velocity.y * (other.mass - mass) + (2 * mass * temp.y)) / (mass + other.mass);
+      
+      position.add(velocity);
+      other.position.add(other.velocity);
     
   }
     
