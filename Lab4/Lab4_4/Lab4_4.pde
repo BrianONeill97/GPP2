@@ -1,4 +1,4 @@
-int MAX_BALLS = 100;
+int MAX_BALLS = 10;
 Ball[] balls = new Ball[MAX_BALLS];
 
 void setup()

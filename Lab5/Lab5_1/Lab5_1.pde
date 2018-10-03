@@ -4,8 +4,15 @@
 
 PImage guard;
 
+
+
 float xPos;
 float yPos;
+
+PVector facing;
+
+boolean moveLeft = false;
+boolean moveRight = true;
 
 
 void setup()
@@ -14,33 +21,71 @@ void setup()
   
   guard = loadImage("Sprites/guard.png");
   
-  xPos = width/2;
-  yPos = height/2;
+  image(guard,xPos,yPos);
+
+  
+  xPos = 750;
+  yPos = 500;
 
 }
+
+ void keyPressed()
+  {
+     p.update();
+  }
 
 void draw()
 {
   
     background(10);
-    image(guard,xPos,yPos);
+    
 
-    p.keyPressed();
+    
     p.display();
+   
     
-    
-    xPos++;
+    if(moveRight == true && moveLeft == false)
+    {
+        xPos += 5;
+        image(guard,xPos,yPos);
+    }
+    else if(moveRight == false && moveLeft == true)
+    {
+        xPos -= 5;
+      pushMatrix();
+      translate(xPos + guard.width,yPos);
+      scale(-1.0,1.0);
+      image(guard,0,0);
+      popMatrix();
+    }
+  
     
     if(xPos == 1500)
     {
-      pushMatrix();
-      scale(-1.0,1.0);
-      image(guard,-guard.width,0);
-      popMatrix();
-      xPos--;
+      moveRight = false;
+      moveLeft = true;      
     }
+    
+    if(xPos == 0)
+    {
+      moveRight = true;
+      moveLeft = false;
+    }
+    
+   
+    
+   
     
     
     
  
 }
+
+ double fov()
+    {
+      PVector temp = new PVector(0,0);
+      PVector tempTwo = new PVector(p.position.x,p.position.y);
+      temp  = tempTwo.sub(xPos,yPos);
+      double dP = facing.dot(temp);
+      return dP;
+    }
