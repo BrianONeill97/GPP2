@@ -4,7 +4,6 @@ class Cannon
   PVector pos;
 
   //Pos for the ball
-  PVector posBall = new PVector(0, 60);
   //Width
   float w;
   //Height
@@ -16,8 +15,9 @@ class Cannon
 
 
 
-  float deg = 4.8;
+  float deg = 4.7;
   float gravity = -9.8;
+  float initV =80;
 
   //Used to update the player
   float time = -0.2;
@@ -44,7 +44,7 @@ class Cannon
   {
     if (keyPressed)
     {
-      if (keyCode == DOWN)
+      if (keyCode == RIGHT)
       {
 
         deg += 0.03;
@@ -52,12 +52,31 @@ class Cannon
         print(deg);
       }
 
-      if (keyCode == UP)
+      if (keyCode == LEFT)
       {
         deg -= 0.03;
       }
+
+
+      if (keyCode == UP)
+      {
+
+        initV += 1;
+
+        
+      }
+
+      if (keyCode == DOWN)
+      {
+        initV -= 1;
+      }
     }
-    surface.setTitle("Angle="+(deg - 4.8)+"("+degrees(deg - 4.8)+")");
+    
+    textSize(32);
+    text(initV,10,30);
+    
+    
+    surface.setTitle("Angle="+(deg -  4.7)+"("+degrees(deg -  4.7)+")");
 
     pushMatrix();
     noStroke();
@@ -68,11 +87,6 @@ class Cannon
     popMatrix();
   }
 
-  //float getAngle()
-  // {
-  //  float angle = atan2(pos.y -height/2, pos.x - width/2);
-  //   return angle;
-  // }
 
   float calcBallX(float time, float initV, float angle)
   {
@@ -88,8 +102,8 @@ class Cannon
 
   void shoot()
   {
-    x = calcBallX(time, 100, deg);
-    y = calcBallY(time, 100, deg);
+    x = calcBallX(time, initV, deg);
+    y = calcBallY(time, initV, deg);
     fill(20, 200, 50);
     ellipse(x, y, 30, 30);
     time -= TIME_STEP;
@@ -113,6 +127,6 @@ class Cannon
 
     x = newX;
     y = newY;
-    deg = 0;
+    deg =  4.7;
   }
 }

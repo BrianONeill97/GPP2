@@ -1,6 +1,8 @@
 Cannon can = new Cannon(-20, -20, 40, 100, 10);
+Target t = new Target(700, 100, 50, 50);
 
 boolean ballAlive = false;
+boolean targetAlive = true;
 void setup()
 {
   size(1200, 500);
@@ -20,15 +22,24 @@ void draw()
       ballAlive = true;
     }
   }
-  
-  if(ballAlive == true)
+
+  if (ballAlive == true)
   {
-    can.shoot();  
+    can.shoot();
   }
-  
-  if(can.check() == true)
+
+  if (can.check() == true)
   {
-    can.reset(0,0);
+    can.reset(0, 0);
     ballAlive = false;
+  }
+  if (dist(can.x, can.y, t.pos.x, t.pos.y) < 40)
+  {
+    targetAlive = false;
+  }
+
+  if (targetAlive == true)
+  {
+    t.drawTarget();
   }
 }
