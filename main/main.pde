@@ -1,4 +1,4 @@
-Cannon can = new Cannon(-20, -20, 40, 100, 7);
+Cannon can = new Cannon(-20, -20, 40, 100, 10);
 
 boolean ballAlive = false;
 void setup()
@@ -23,7 +23,12 @@ void draw()
   
   if(ballAlive == true)
   {
-    can.shoot();
-    
+    can.shoot();  
+  }
+  
+  if(can.check() == true)
+  {
+    can.reset(0,0);
+    ballAlive = false;
   }
 }

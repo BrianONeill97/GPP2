@@ -1,3 +1,8 @@
+import ddf.minim.*;
+
+Minim file;
+AudioPlayer sound;
+
   Player p = new Player(1000f,500f,90f);
 
 /* @pjs preload="Sprites/guard.png"; */
@@ -20,6 +25,9 @@ void setup()
   size(2000,1000);
   
   guard = loadImage("Sprites/guard.png");
+  file = new Minim(this);
+  
+  sound = file.loadFile("Sprites/alert.mp3");
   
   image(guard,xPos,yPos);
 
@@ -46,6 +54,7 @@ void draw()
     
     if(moveRight == true && moveLeft == false)
     {
+      sound.play();
         xPos += 5;
         image(guard,xPos,yPos);
     }
