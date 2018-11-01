@@ -1,53 +1,45 @@
-CannonBall cB = new CannonBall(250f, 730, 20f);
-boolean fired = false;
-boolean drawText = false;
+Cannon can = new Cannon(-20, -20, 40, 100, 10);
+Target t = new Target(700, 100, 50, 50);
 
-int start;
-
-
+boolean ballAlive = false;
+boolean targetAlive = true;
 void setup()
-{ 
-  size(2000, 1000);
+{
+  size(1200, 500);
 }
 
+
 void draw()
-{
-  //Create Background
+{ 
   background(10);
 
-
-  //Check Key Presses
+  can.drawCannon();
   if (keyPressed)
   {
     //Checks the Space Key
     if (key == ' ')
     {
-      fired = true;
-      drawText = true;
-      start = millis();
+      ballAlive = true;
     }
   }
 
-  //Fires the Ball
-  if (fired == true)
+  if (ballAlive == true)
   {
-    cB.fire();
+    can.shoot();
   }
 
-  //Checks for collision with the ground and the walls
-  cB.collision();
-
-
-  cB.display();
-
-  //Creates the ground 
-  fill(50, 200, 50);
-  rect(0, 750, 2000, 250);
-
-  if (drawText)
+  if (can.check() == true)
   {
-    //Timer
-    int timer = (millis() - start)/1000;
-    text(timer, 20, 20);
+    can.reset(0, 0);
+    ballAlive = false;
+  }
+  if (dist(can.x, can.y, t.pos.x, t.pos.y) < 40)
+  {
+    targetAlive = false;
+  }
+
+  if (targetAlive == true)
+  {
+    t.drawTarget();
   }
 }
